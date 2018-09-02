@@ -206,6 +206,42 @@ class App extends Component {
         initialValues={{ employed: true }}
         onSubmit={onSubmit}
       >
+       <Wizard.Page >
+      <div >
+        <p>The CRISP-Q study.</p>
+        <p>Researchers: Yena (Grace) Kim (Scholarly Selective Student), Prof Jon Emery, A/Prof Marie Pirotta and Dr Jennifer Walker The Department of General Practice, University of Melbourne</p>
+
+        <p>Thank you for taking part in this study. We are interested in how people think about their risk of bowel cancer and their use of bowel cancer screening tests</p>          
+        <p>Who can participate? </p>
+        <p>Any person 40 years or older but younger than 75, attending a GP appointment at Deepdene Surgery can participate in the study.</p>
+        <p>What are the risks?</p>
+        <p>This survey is completely anonymous and therefore confidential, so there is no risk that we will know who said what. This study is completely voluntary and to withdraw during the study simply stop answering the questions. Due to the anonymous nature of the study we will not be able to delete your data if you withdraw.</p>
+        <p>If you are concerned about your risk of bowel cancer, please discuss this with your doctor today.</p>
+      </div>
+    </Wizard.Page>
+    <Wizard.Page >
+      <div >
+        <p><b>What I need to do?</b> This study will take between 10 to 15 minutes to complete, prior to your appointment with your doctor today. You will not miss your appointment.</p>
+        <p>You will be shown some scenarios about bowel cancer risk. We would like you to imagine that the information is about your risk of bowel cancer.</p>
+
+        <p>After each scenario, you will be asked to say whether you would choose to do one of the following options:</p>
+        <ol type="1">
+        
+        <b><li >No screening for bowel cancer.</li> </b>
+        <li><b>Screening using the faecal occult blood test (FOBT). </b><p>This involves taking tiny samples from two separate bowel motions (poo) using a test kit. The samples are then posted to a laboratory for testing.</p> </li> 
+        <li><b>Screening by colonoscopy.</b></li><p>A colonoscopy is a medical procedure that examines the large bowel, while the person is under a light sedation.</p>
+        <p>The colonoscope is a long, firm and flexible plastic tube with a tiny digital camera and light at one end.</p>
+        <p>Colonoscopy is generally a safe procedure, although complications may rarely occur.</p>
+        <p>Complications include: excessive bleeding and perforation or puncture of the colon wall.</p>
+        <p>Having a colonoscopy means staying at home the day before for 'bowel preparation' using laxatives that stimulate bowel movements and 'cleanse the bowel'. The person would not be able to work on the day of the procedure.</p>
+        </ol>
+        <p><b>Clicking Start means that you understand the information on this page and consent to being involved in this study.</b></p>
+      </div>
+    </Wizard.Page> 
+      <Wizard.Page>
+            <p>The next pages will show you different information about bowel cancer risk.</p>
+            <p>Simply imagine this information is about you. </p>
+          </Wizard.Page>
         <Wizard.Page validate={values => {
           const errors = {}
 
@@ -493,10 +529,10 @@ class App extends Component {
         <p><b>Clicking Start means that you understand the information on this page and consent to being involved in this study.</b></p>
       </div>
     </Wizard.Page> */}
-          <Wizard.Page>
+          {/* <Wizard.Page>
             <p>The next pages will show you different information about bowel cancer risk.</p>
             <p>Simply imagine this information is about you. </p>
-          </Wizard.Page>
+          </Wizard.Page> */}
           {/* <Wizard.Page >
       <div >
         <label>Name</label>
