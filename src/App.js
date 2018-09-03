@@ -11,7 +11,7 @@ import './index.css';
 import Background from '../src/img/error.png';
 import RadioGroup from './RadioGroup'
 // import { ComboBox } from '@progress/kendo-react-dropdowns';
-
+import HRpopulation from '../src/img/HRpopulationScreeningRisk.png';
 
 class App extends Component {
 
@@ -235,6 +235,33 @@ class App extends Component {
         <p>If you are concerned about your risk of bowel cancer, please discuss this with your doctor today.</p>
       </div>
     </Wizard.Page>
+    <Wizard.Page>
+        <div className="form-group ">
+            <div className="radio-button-container radio-container-inline" onChange={this.setColonoscopy.bind(this)}>
+              {/* <div className=""> */}
+              {/* </div> */}
+             
+              <label >This diagram shows you what would happen to 100,000 people like you if they have either a faecal occult blood test (FOBT), no bowel cancer screening or a colonoscopy.</label>
+              <div className="col-sm-12 ">
+                    <a href="#"><img src={HRpopulation} alt={"HRpopulation"} /> </a>
+            </div><br></br>
+               <div>
+              <label >Based on this information, would you choose to have (please select ONE of the following options):</label><br></br>
+                </div>
+            <div className="col-sm-12 control-margin-lbl-select">
+                  <input type="radio" value="YES" name="colonoscopy"  /> Yes
+                <input type="radio" value="NO" name="colonoscopy" /> No
+                </div>
+            </div>
+              {/* </div> */}
+              <br></br>
+              <div className="validationMsg" >
+                {/* // style={ { backgroundImage: `url(${Background})` } }  > */}
+                <Error name="colonoscopy" />
+              </div>
+            </div>
+
+        </Wizard.Page>
     <Wizard.Page >
       <div >
         <p><b>What I need to do?</b> This study will take between 10 to 15 minutes to complete, prior to your appointment with your doctor today. You will not miss your appointment.</p>
@@ -532,8 +559,7 @@ class App extends Component {
 
 
         </Wizard.Page>
-
-
+        
           {/* <Wizard.Page >
       <div >
         <p>The CRISP-Q study.</p>
