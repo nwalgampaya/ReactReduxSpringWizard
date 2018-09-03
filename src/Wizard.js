@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Form } from 'react-final-form'
 // import FormContainer from './containers/FormContainer';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import logo1 from '../src/img/logo1.png';
 import logoM from '../src/img/logoM.png';
 import Styles from './Styles'
+import './App.css';
 
 
 export default class Wizard extends React.Component {
@@ -98,16 +98,32 @@ export default class Wizard extends React.Component {
                 </button>
 
                     )} */}
-                    {page > 0 && (
-                      <button type="button" onClick={this.endSession}>
+                     {page == 0 && (
+                      <button className="invisible" type="button" onClick={this.endSession}>
                         End session
                 </button>
 
 
                     )}
-                    {!isLastPage && <button type="submit">Next »</button>}
-                    {isLastPage && (
+                    {page > 0 && (
+                      <button className="btn btn-primary" styles={{ float: 'left', paddingLeft: '10px'}} type="button" onClick={this.endSession}>
+                        End session
+                </button>
+
+
+                    )}
+                   {/* {page ==2 && (
                       <button type="submit" disabled={submitting}>
+                        Submit
+                </button>
+                    )}  */}
+                    {page !=1 && !isLastPage && <button className="btn btn-primary pull-right " type="submit">  Next  </button>}
+                     {page ==1 && ( <button className="btn btn-primary pull-right" type="submit" disabled={submitting}>
+                        Start
+                </button>
+                    )}
+                    {isLastPage && (
+                      <button className="btn btn-primary pull-right" type="submit" disabled={submitting}>
                         Submit
                 </button>
                     )}

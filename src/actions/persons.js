@@ -13,7 +13,8 @@ export const addPerson = (
     country: "",
     language: "",
     relation: "",
-    education: ""
+    education: "",
+    colonoscopy:""
     // language: "",
     // relationStatus: "",
     // educationLevel: ""
@@ -28,7 +29,8 @@ export const addPerson = (
       country: personData.country,
       language: personData.language,
       relation: personData.relation,
-      education: personData.education
+      education: personData.education,
+      colonoscopy: personData.colonoscopy
       // language: personData.language,
       // relationStatus: personData.relationStatus,
       // educationLevel: personData.educationLevel

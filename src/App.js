@@ -24,7 +24,8 @@ class App extends Component {
     this.onCountryChange = this.onCountryChange.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
     this.onRelationChange = this.onRelationChange.bind(this);
-    this.onEducationChange = this.onEducationChange.bind(this)
+    this.onEducationChange = this.onEducationChange.bind(this);
+    this.oncolonoscopyChange = this.oncolonoscopyChange.bind(this)
 
     // this.onPublishedChange = this.onPublishedChange.bind(this);
     // this.onSubmit = this.onSubmit.bind(this);
@@ -36,6 +37,7 @@ class App extends Component {
       language: props.person ? props.person.language : "",
       relation: props.person ? props.person.relation : "",
       education: props.person ? props.person.education : "",
+      colonoscopy: props.person ? props.person.colonoscopy:"",
       showResults: false
 
     };
@@ -44,7 +46,11 @@ class App extends Component {
 
 
   // connect()
-
+  endSession = () =>
+    this.setState(state => ({
+      // page: Math.max(state.page - 1, 0)
+      page: 0
+    }))
   onNameChange(e) {
     const name = e.target.value;
     this.setState(() => ({ name: name }));
@@ -83,7 +89,10 @@ class App extends Component {
     const education = e.target.value;
     this.setState(() => ({ education: education }));
   }
- 
+  oncolonoscopyChange(e) {
+    const colonoscopy = e.target.value;
+    this.setState(() => ({ colonoscopy: colonoscopy }));
+  }
 
   // validate(event) {
   //   console.log("In validate");
@@ -135,7 +144,12 @@ class App extends Component {
     this.setState(() => ({ language: language }));
   }
 
+  setColonoscopy(event) {
+    console.log(event.target.value);
+    const colonoscopy = event.target.value;
+    this.setState(() => ({ colonoscopy: colonoscopy }));
 
+  }
   createSelectItems() {
     let items = [];
     for (let i = 0; i <= this.props.maxValue; i++) {
@@ -155,22 +169,24 @@ class App extends Component {
 
     const onSubmit = async values => {
       await sleep(300)
-      if (!this.state.name || !this.state.year || !this.state.sex) {
-        console.log("In submit If" + this.state.name);
+      if ( !this.state.year || !this.state.sex) {
+        // !this.state.name ||
+        console.log("In submit If" + this.state.colonoscopy);
         this.setState(() => ({
           error: "Please set name & year & sex!"
         }));
       } else {
-        console.log("In submit else"+ this.state.country);
+        console.log("In submit else"+ this.state.colonoscopy);
         this.setState(() => ({ error: "" }));
         this.props.onSubmitPerson({
-          name: this.state.name,
+          // name: this.state.name,
           year: this.state.year,
           sex: this.state.sex,
           country: this.state.country ,
           language: this.state.language ,
           relation: this.state.relation ,
           education: this.state.education ,
+          colonoscopy: this.state.colonoscopy,
           // published: this.state.published
         });
         window.alert(JSON.stringify(values, 0, 2))
@@ -208,13 +224,13 @@ class App extends Component {
       >
        <Wizard.Page >
       <div >
-        <p>The CRISP-Q study.</p>
+        <p><b>The CRISP-Q study.</b></p>
         <p>Researchers: Yena (Grace) Kim (Scholarly Selective Student), Prof Jon Emery, A/Prof Marie Pirotta and Dr Jennifer Walker The Department of General Practice, University of Melbourne</p>
 
         <p>Thank you for taking part in this study. We are interested in how people think about their risk of bowel cancer and their use of bowel cancer screening tests</p>          
-        <p>Who can participate? </p>
+        <p><b>Who can participate? </b></p>
         <p>Any person 40 years or older but younger than 75, attending a GP appointment at Deepdene Surgery can participate in the study.</p>
-        <p>What are the risks?</p>
+        <p><b>What are the risks?</b></p>
         <p>This survey is completely anonymous and therefore confidential, so there is no risk that we will know who said what. This study is completely voluntary and to withdraw during the study simply stop answering the questions. Due to the anonymous nature of the study we will not be able to delete your data if you withdraw.</p>
         <p>If you are concerned about your risk of bowel cancer, please discuss this with your doctor today.</p>
       </div>
@@ -237,12 +253,14 @@ class App extends Component {
         </ol>
         <p><b>Clicking Start means that you understand the information on this page and consent to being involved in this study.</b></p>
       </div>
+            {/* <button type="button" onClick={this.endSession }>End sessiont</button> */}
+            {/* <button>start</button> */}
     </Wizard.Page> 
-      <Wizard.Page>
+    <Wizard.Page>
             <p>The next pages will show you different information about bowel cancer risk.</p>
             <p>Simply imagine this information is about you. </p>
-          </Wizard.Page>
-        <Wizard.Page validate={values => {
+    </Wizard.Page>
+    <Wizard.Page validate={values => {
           const errors = {}
 
           if (!this.state.sex) {
@@ -263,6 +281,9 @@ class App extends Component {
           }
           if (!this.state.education) {
             errors.education = 'Please select the appropriate option'
+          }
+          if (!this.state.colonoscopy) {
+            errors.colonoscopy = 'Please select the appropriate option'
           }
 
 
@@ -478,10 +499,26 @@ class App extends Component {
             <br></br>
 
 
+          <div className="form-group ">
+            <div className="radio-button-container radio-container-inline" onChange={this.setColonoscopy.bind(this)}>
+              {/* <div className=""> */}
+              <label className="control-margin-lbl">Have you ever had a colonoscopy?</label><br></br>
+              {/* </div> */}
+              <div className="col-sm-12 ">
 
+                <input type="radio" value="YES" name="colonoscopy" /> Yes
+            <input type="radio" value="NO" name="colonoscopy" /> No
+            </div>
+              {/* </div> */}
+              <br></br>
+              <div className="validationMsg" >
+                {/* // style={ { backgroundImage: `url(${Background})` } }  > */}
+                <Error name="colonoscopy" />
+              </div>
+            </div></div>
             <div >
 
-              <label>Name
+              {/* <label>Name
           <input
                   type="text"
                   placeholder="name"
@@ -490,7 +527,7 @@ class App extends Component {
                   onChange={this.onNameChange}
                 />
                 <Error className="inline-error " name="name" />
-              </label>
+              </label> */}
             </div>
 
 
