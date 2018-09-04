@@ -288,11 +288,15 @@ class App extends Component {
             <p styles= 'margin-bottom:100px'>Most people like you would choose to have a faecal occult blood test.</p>
             <p>If this was your bowel cancer risk, would you choose to have now</p>
             <p><i>(please select ONE of the following options):</i></p>
-            <div   onChange={this.setScreening2.bind(this)}>
+            <div className="form-check"  onChange={this.setScreening2.bind(this)}>
             <div className="col-sm-12 control-margin-lbl-select">
+            <label className="radio-inline">
                   <input type="radio" value="NOSCREENING" name="screening2" /> No bowel cancer screening  
+</label><label className="radio-inline">
                   <input type="radio" value="FAECALBLOOD" name="screening2" /> Faecal occult blood test (FOBT)
+                  </label><label className="radio-inline">
                   <input type="radio" value="COLONOSCOPY" name="screening2" /> Colonoscopy
+</label>
               </div>
               <div className="validationMsg" >
                 <Error name="screening2" />
