@@ -34,7 +34,7 @@ const btn = (light, dark) => css`
 var backGroundStyle = {
   width: "100%",
   height: "400px",
-  backgroundImage: "url(" + { headervector } + ")"
+  backgroundImage: `url(${headervector})`
 }
 const btnDefault = css`
   ${btn('#ffffff', '#d5d5d5')} color: #555;

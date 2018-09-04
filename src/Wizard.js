@@ -2,10 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Form } from 'react-final-form'
 // import FormContainer from './containers/FormContainer';
-import 'bootstrap/dist/css/bootstrap.css';
+//import 'bootstrap/dist/css/bootstrap.css';
+import  'bootstrap/dist/css/bootstrap.min.css';
 import logo1 from '../src/img/logo1.png';
 import logoM from '../src/img/logoM.png';
+import background from '../src/img/headervector.png';
 import Styles from './Styles'
+
 import './App.css';
 
 
@@ -22,11 +25,32 @@ export default class Wizard extends React.Component {
       values: props.initialValues || {}
     }
   }
-  next = values =>
-    this.setState(state => ({
-      page: Math.min(state.page + 1, this.props.children.length - 1),
-      values
-    }))
+
+  rndno= (min, max) =>{
+    return Math.floor(Math.random() * (max - min) );
+   
+	} 
+  next = values =>{
+    console.log("this.page"+ this.state.page);
+    // if(this.state.page == 1){
+    //   const rnd=  this.rndno(0,3);
+    //   console.log("******************** If: "+rnd);
+    //   this.setState(state => ({
+    //   page: Math.min(rnd  , this.props.children.length - 1),
+    //   values  
+    // }))}
+    // else{
+      console.log("********************@@@@@@"+ this.rndno(0,4));
+      this.setState(state => ({
+        page: Math.min(state.page+ 1, this.props.children.length - 1),
+        values
+      }))
+    // }
+    }
+  // this.setState(state => ({
+  //   page: Math.min(state.page + 1, this.props.children.length - 1),
+  //   values
+  // }))}
 
   previous = () =>
     this.setState(state => ({
@@ -63,12 +87,19 @@ export default class Wizard extends React.Component {
   }
 
   render() {
+
+    // var sectionStyle = {
+    //   width: "100%",
+    //   height: "400px",
+    //   backgroundImage: `url(${background})`
+    // };
+
     const { children } = this.props
     const { page, values } = this.state
     const activePage = React.Children.toArray(children)[page]
     const isLastPage = page === React.Children.count(children) - 1
     return (
-      <div >
+      <div>
         <div className="container">
 
           <div className="header">
@@ -80,6 +111,9 @@ export default class Wizard extends React.Component {
               <a href="http://www.crisp.org.au/"><img src={logoM} alt={"logoM"} /> </a>
             </div>
           </div>
+        </div>
+        <p></p>
+        <div >
         </div>
         <div className="container">
           <div className='content_body centered' >

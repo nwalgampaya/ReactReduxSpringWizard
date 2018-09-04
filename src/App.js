@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
-import './App.css';
-
+//import './App.css';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import  'bootstrap/dist/css/bootstrap.min.css';
 import { addPerson } from "./components/AddPerson";
 import { connect } from "react-redux";
 import { Field } from 'react-final-form'
@@ -12,6 +13,8 @@ import Background from '../src/img/error.png';
 import RadioGroup from './RadioGroup'
 // import { ComboBox } from '@progress/kendo-react-dropdowns';
 import HRpopulation from '../src/img/HRpopulationScreeningRisk.png';
+import UomLogo from '../src/img/ausUomLogo.png';
+// import { Navbar, Jumbotron, Button , styles} from 'react-bootstrap';
 
 class App extends Component {
 
@@ -25,7 +28,14 @@ class App extends Component {
     this.onLanguageChange = this.onLanguageChange.bind(this);
     this.onRelationChange = this.onRelationChange.bind(this);
     this.onEducationChange = this.onEducationChange.bind(this);
-    this.oncolonoscopyChange = this.oncolonoscopyChange.bind(this)
+    this.oncolonoscopyChange = this.oncolonoscopyChange.bind(this);
+    this.onscreening1Change = this.onscreening1Change.bind(this);
+    this.onscreening2Change = this.onscreening2Change.bind(this);
+
+
+    // onscreening1Changehange = this.oncolonoscopyChange.bind(this);
+    // this.   onscree = this.onscreening1Change.bind(this);
+    
 
     // this.onPublishedChange = this.onPublishedChange.bind(this);
     // this.onSubmit = this.onSubmit.bind(this);
@@ -38,6 +48,8 @@ class App extends Component {
       relation: props.person ? props.person.relation : "",
       education: props.person ? props.person.education : "",
       colonoscopy: props.person ? props.person.colonoscopy:"",
+      screening1:  props.person ? props.person.screening1:"",
+      screening2:  props.person ? props.person.screening2:"",
       showResults: false
 
     };
@@ -93,7 +105,14 @@ class App extends Component {
     const colonoscopy = e.target.value;
     this.setState(() => ({ colonoscopy: colonoscopy }));
   }
-
+  onscreening1Change(e) {
+    const screening1 = e.target.value;
+    this.setState(() => ({ screening1: screening1 }));
+  }
+  onscreening2Change(e) {
+    const screening2 = e.target.value;
+    this.setState(() => ({ screening2: screening2 }));
+  }
   // validate(event) {
   //   console.log("In validate");
   //   let name = event.target.name;
@@ -150,7 +169,18 @@ class App extends Component {
     this.setState(() => ({ colonoscopy: colonoscopy }));
 
   }
-  createSelectItems() {
+  setScreening1(event) {
+    console.log(event.target.value);
+    const screening1 = event.target.value;
+    this.setState(() => ({ screening1: screening1 }));
+
+  }
+  setScreening2(event) {
+    console.log(event.target.value);
+    const screening2 = event.target.value;
+    this.setState(() => ({ screening2: screening2 }));
+
+  }createSelectItems() {
     let items = [];
     for (let i = 0; i <= this.props.maxValue; i++) {
       items.push(<option key={i} value={i}>{i}</option>);
@@ -217,11 +247,20 @@ class App extends Component {
 
     ];
 
+    const styles = {
+      marginbottom:'100px',
+      color: "red",
+      // background: "#0f0",
+      // fontSize: "32px"
+  };
+
     return (
+      
       <Wizard
         initialValues={{ employed: true }}
         onSubmit={onSubmit}
       >
+
        <Wizard.Page >
       <div >
         <p><b>The CRISP-Q study.</b></p>
@@ -235,6 +274,66 @@ class App extends Component {
         <p>If you are concerned about your risk of bowel cancer, please discuss this with your doctor today.</p>
       </div>
     </Wizard.Page>
+    <Wizard.Page validate ={values => {
+          const errors = {}
+          if (!this.state.screening2) {
+            errors.screening2 = 'Please select the appropriate option'
+          }return errors}}>
+
+        {/* <div className='img-responsive center-block' > */}
+              <a href="#"><img src={UomLogo} alt={"UomLogo"} className='rounded mx-auto d-block' /> </a>
+        {/* </div> */}
+            <p>Your risk of developing bowel cancer in the next 5 years is <b> 0.2%..</b></p>
+            {/* styles={{float : 'left', paddingRight : '5px'}} {{margin-bottom:'100px'}} */}
+            <p styles= 'margin-bottom:100px'>Most people like you would choose to have a faecal occult blood test.</p>
+            <p>If this was your bowel cancer risk, would you choose to have now</p>
+            <p><i>(please select ONE of the following options):</i></p>
+            <div   onChange={this.setScreening2.bind(this)}>
+            <div className="col-sm-12 control-margin-lbl-select">
+                  <input type="radio" value="NOSCREENING" name="screening2" /> No bowel cancer screening  
+                  <input type="radio" value="FAECALBLOOD" name="screening2" /> Faecal occult blood test (FOBT)
+                  <input type="radio" value="COLONOSCOPY" name="screening2" /> Colonoscopy
+              </div>
+              <div className="validationMsg" >
+                <Error name="screening2" />
+              </div>
+              </div>
+            <br></br>
+              
+    </Wizard.Page>
+    <Wizard.Page validate={values => {
+          const errors = {}
+
+          if (!this.state.screening1) {
+            errors.screening1 = 'Please select the appropriate option'
+          }return errors
+          if (!this.state.screening2) {
+            errors.screening2 = 'Please select the appropriate option'
+          }return errors}}>
+
+        {/* <div className='img-responsive center-block' > */}
+              <a href="#"><img src={UomLogo} alt={"UomLogo"} className='rounded mx-auto d-block' /> </a>
+        {/* </div> */}
+            <p>Your risk of developing bowel cancer in the next 5 years is <b>1.6%.</b></p>
+            {/* styles={{float : 'left', paddingRight : '5px'}} {{margin-bottom:'100px'}} */}
+            <p styles= 'margin-bottom:100px'>Australian National Health guidelines recommend you have a colonoscopy.</p>
+            <p>If this was your bowel cancer risk, would you choose to have now</p>
+            <p><i>(please select ONE of the following options):</i></p>
+              <div   onChange={this.setScreening1.bind(this)}>
+            <div className="col-sm-12 control-margin-lbl-select">
+                  <input type="radio" value="NOSCREENING" name="screening1" /> No bowel cancer screening  
+                  <input type="radio" value="FAECALBLOOD" name="screening1" /> Faecal occult blood test (FOBT)
+                  <input type="radio" value="COLONOSCOPY" name="screening1" /> Colonoscopy
+              </div>
+              <div className="validationMsg" >
+                <Error name="screening1" />
+              </div>
+              </div>
+              <br></br>
+
+              
+    </Wizard.Page>
+
     <Wizard.Page>
         <div className="form-group ">
             <div className="radio-button-container radio-container-inline" onChange={this.setColonoscopy.bind(this)}>
@@ -249,8 +348,9 @@ class App extends Component {
               <label >Based on this information, would you choose to have (please select ONE of the following options):</label><br></br>
                 </div>
             <div className="col-sm-12 control-margin-lbl-select">
-                  <input type="radio" value="YES" name="colonoscopy"  /> Yes
-                <input type="radio" value="NO" name="colonoscopy" /> No
+                  <input type="radio" value="English" name="language" /> No bowel cancer screening  
+                  <input type="radio" value="OTHERLANGUAGE" name="language" /> Faecal occult blood test (FOBT)
+                  <input type="radio" value="English" name="language" /> Colonoscopy
                 </div>
             </div>
               {/* </div> */}
