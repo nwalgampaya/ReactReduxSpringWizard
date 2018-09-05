@@ -284,7 +284,42 @@ class App extends Component {
       >
 
        <Wizard.Page >
-      <div >
+       <b><p>After considering this information about the costs and potential harms of tests, what test would you use for screening if you were at INCREASED RISK of colorectal cancer?</p></b>
+            
+            {/* <div   onChange={this.setScreening1.bind(this)}> */}
+            <div className="control-margin-lbl-select">
+            <div className="form-check col-sm-12 "  onChange={this.setScreening1.bind(this)}>
+          {/* <div className="form-check control-margin-lbl-select col-sm-12 "> */}
+          <div className="custom-control custom-radio">
+          {/* <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"/>
+          <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label> */}
+          {/* <label className="radio-inline">   */}
+                {/* <input type="radio" value="NOSCREENING" name="screening1" id="customRadio1"  class="custom-control-input"/> 
+                <label class="custom-control-label" for="customRadio1">No bowel cancer screening  </label> */}
+            {/* </label> */}
+            {/* <label className="radio-inline"> */}
+                {/* <input type="radio" value="FAECALBLOOD" name="screening1"  id="customRadio2"  class="custom-control-input" /> <label class="custom-control-label" for="customRadio2">Faecal occult blood test (FOBT)</label> */}
+            {/* </label><label className="radio-inline">     */}
+                {/* <input type="radio" value="COLONOSCOPY" name="screening1"   id="customRadio3"  class="custom-control-input"/> <label class="custom-control-label" for="customRadio3">Colonoscopy
+                </label> */}
+                <div class="form-check">
+                <input type="radio" value="NOSCREENING" name="screening1" id="materialChecked" class="form-check-input"/> 
+                <label class="form-check-label" for="materialChecked">No bowel cancer screening  </label>
+
+<input type="radio" value="FAECALBLOOD" name="screening1"  id="materialChecked"  class="form-check-input" /> <label class="form-check-label" for="materialChecked">Faecal occult blood test (FOBT)</label>    
+          </div>
+          </div>
+            </div>
+            </div>
+            <div className="validationMsg" >
+              <Error name="screening1" />
+            </div>
+            {/* </div> */}
+
+            <br></br>
+    </Wizard.Page>
+     <Wizard.Page >
+        <div >
         <p><b>The CRISP-Q study.</b></p>
         <p>Researchers: Yena (Grace) Kim (Scholarly Selective Student), Prof Jon Emery, A/Prof Marie Pirotta and Dr Jennifer Walker The Department of General Practice, University of Melbourne</p>
 
