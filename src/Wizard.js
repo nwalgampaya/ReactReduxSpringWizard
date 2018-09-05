@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Form } from 'react-final-form'
 // import FormContainer from './containers/FormContainer';
 //import 'bootstrap/dist/css/bootstrap.css';
-import  'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import logo1 from '../src/img/logo1.png';
 import logoM from '../src/img/logoM.png';
 import background from '../src/img/headervector.png';
@@ -26,12 +26,12 @@ export default class Wizard extends React.Component {
     }
   }
 
-  rndno= (min, max) =>{
-    return Math.floor(Math.random() * (max - min) );
-   
-	} 
-  next = values =>{
-    console.log("this.page"+ this.state.page);
+  rndno = (min, max) => {
+    return Math.floor(Math.random() * (max - min));
+
+  }
+  next = values => {
+    console.log("this.page" + this.state.page);
     // if(this.state.page == 3){
     //   const rnd=  this.rndno(0,6);
     //   console.log("******************** If: "+rnd);
@@ -40,13 +40,13 @@ export default class Wizard extends React.Component {
     //   values  
     // }))}
     // else{
-      console.log("********************@@@@@@"+ this.rndno(0,4));
-      this.setState(state => ({
-        page: Math.min(state.page+ 1, this.props.children.length - 1),
-        values
-      }))
+    console.log("********************@@@@@@" + this.rndno(0, 4));
+    this.setState(state => ({
+      page: Math.min(state.page + 1, this.props.children.length - 1),
+      values
+    }))
     // }
-    }
+  }
   // this.setState(state => ({
   //   page: Math.min(state.page + 1, this.props.children.length - 1),
   //   values
@@ -79,7 +79,10 @@ export default class Wizard extends React.Component {
     const { children, onSubmit } = this.props
     const { page } = this.state
     const isLastPage = page === React.Children.count(children) - 1
-    if (isLastPage) {
+
+    // isLastPage ||
+    if (this.state.page == 3) {
+      this.next(values)
       return onSubmit(values)
     } else {
       this.next(values)
@@ -132,7 +135,7 @@ export default class Wizard extends React.Component {
                 </button>
 
                     )} */}
-                     {page == 0 && (
+                    {page == 0 && (
                       <button className="invisible" type="button" onClick={this.endSession}>
                         End session
                 </button>
@@ -140,28 +143,30 @@ export default class Wizard extends React.Component {
 
                     )}
                     {page > 0 && (
-                      <button className="btn btn-primary" styles={{ float: 'left', paddingLeft: '10px'}} type="button" onClick={this.endSession}>
+                      <button className="btn btn-primary" styles={{ float: 'left', paddingLeft: '10px' }} type="button" onClick={this.endSession}>
                         End session
                 </button>
 
 
                     )}
-                   {/* {page ==2 && (
+                    {/* {page ==2 && (
                       <button type="submit" disabled={submitting}>
                         Submit
                 </button>
                     )}  */}
-                    {page !=1 && page !=3 && !isLastPage && <button className="btn btn-primary pull-right " type="submit">  Next  </button>}
-                     {page ==1 && ( <button className="btn btn-primary pull-right" type="submit" disabled={submitting}>
-                        Start
+                    {page != 1 && page != 3 && !isLastPage && <button className="btn btn-primary pull-right " type="submit">  Next  </button>}
+                    {page == 1 && (<button className="btn btn-primary pull-right" type="submit" disabled={submitting}>
+                      Start
                 </button>
                     )}
                     {/* {(isLastPage ) && ( */}
-                    {( page ==3 &&
-                      <button className="btn btn-primary pull-right" type="submit" disabled={submitting}>
-                        Submit
-                </button>
+                    {(page == 3 &&
+                      <button className="btn btn-primary pull-right" type="submit" disabled={submitting}>Next</button>
                     )}
+                    {(isLastPage &&
+                      <button className="btn btn-primary pull-right" type="button" disabled={submitting} onClick={this.endSession}>Finish</button>
+                    )}
+
                   </div>
 
                   {/* <pre>{JSON.stringify(values, 0, 2)}</pre> */}

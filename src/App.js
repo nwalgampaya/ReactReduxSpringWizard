@@ -963,6 +963,12 @@ class App extends Component {
 
             <br></br>
     </Wizard.Page>
+
+    <Wizard.Page>
+            <p>Thank you for completing this research.</p><br></br>
+            <p>If you have any questions please contact us at:<a href="mailto:ykim1@student.unimelb.edu.au"> ykim1@student.unimelb.edu.au</a> or <a href="mailto:walker@unimelb.edu.au">walker@unimelb.edu.au</a></p><br></br>
+            <p>If you would like a copy of the final results of this study, please contact <a href="mailto:walker@unimelb.edu.au">walker@unimelb.edu.au</a></p>
+    </Wizard.Page>
           {/* <Wizard.Page >
       <div >
         <p>The CRISP-Q study.</p>
