@@ -53,7 +53,41 @@ body {
   font-size: 16px;
   line-height: 1.5;
 }
-
+table.custom-matrix-cost td {
+  border: 1px solid #98bf21;;
+  border-style: dotted;
+}
+table.custom-matrix-cost_hr td {
+  border: 1px solid #98bf21;;
+  border-style: dotted;
+}
+.radio-button-label,
+.checkbox-button-label {
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-clip: padding-box
+}
+.radio-button-display,
+.checkbox-button-display {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    z-index: 11;
+    display: block;
+    float: left;
+    margin: 0 8px 0 0
+}
+.user-generated img {
+  max-width: 100%
+}
+.radio-button-label-text,
+.checkbox-button-label-text {
+    display: block;
+    margin-top: 5px;
+    padding-left: 5px;
+    line-height: 1.5
+}
 /*img {  
 max-width: 100% !important;  
 }*/ 

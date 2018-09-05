@@ -32,8 +32,8 @@ export default class Wizard extends React.Component {
 	} 
   next = values =>{
     console.log("this.page"+ this.state.page);
-    // if(this.state.page == 1){
-    //   const rnd=  this.rndno(0,3);
+    // if(this.state.page == 3){
+    //   const rnd=  this.rndno(0,6);
     //   console.log("******************** If: "+rnd);
     //   this.setState(state => ({
     //   page: Math.min(rnd  , this.props.children.length - 1),
@@ -151,12 +151,13 @@ export default class Wizard extends React.Component {
                         Submit
                 </button>
                     )}  */}
-                    {page !=1 && !isLastPage && <button className="btn btn-primary pull-right " type="submit">  Next  </button>}
+                    {page !=1 && page !=3 && !isLastPage && <button className="btn btn-primary pull-right " type="submit">  Next  </button>}
                      {page ==1 && ( <button className="btn btn-primary pull-right" type="submit" disabled={submitting}>
                         Start
                 </button>
                     )}
-                    {isLastPage && (
+                    {/* {(isLastPage ) && ( */}
+                    {( page ==3 &&
                       <button className="btn btn-primary pull-right" type="submit" disabled={submitting}>
                         Submit
                 </button>

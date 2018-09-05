@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Popup from "reactjs-popup";
+import Modal from 'react-responsive-modal';
 // import logo from './logo.svg';
 //import './App.css';
 // import 'bootstrap/dist/css/bootstrap.css';
@@ -9,6 +11,7 @@ import { Field } from 'react-final-form'
 import Wizard from './Wizard'
 import './App.css';
 import './index.css';
+// import './radio.css';
 import Background from '../src/img/error.png';
 import RadioGroup from './RadioGroup'
 // import { ComboBox } from '@progress/kendo-react-dropdowns';
@@ -31,7 +34,7 @@ class App extends Component {
     this.oncolonoscopyChange = this.oncolonoscopyChange.bind(this);
     this.onscreening1Change = this.onscreening1Change.bind(this);
     this.onscreening2Change = this.onscreening2Change.bind(this);
-
+    this.oninfographChange = this.oninfographChange.bind(this);
 
     // onscreening1Changehange = this.oncolonoscopyChange.bind(this);
     // this.   onscree = this.onscreening1Change.bind(this);
@@ -50,13 +53,20 @@ class App extends Component {
       colonoscopy: props.person ? props.person.colonoscopy:"",
       screening1:  props.person ? props.person.screening1:"",
       screening2:  props.person ? props.person.screening2:"",
-      showResults: false
-
+      infograph:   props.person ? props.person.infograph:"",
+      showResults: false,
+      open: false
     };
     // this.handleChange = this.handleChange.bind(this);
   }
 
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
 
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
   // connect()
   endSession = () =>
     this.setState(state => ({
@@ -112,6 +122,11 @@ class App extends Component {
   onscreening2Change(e) {
     const screening2 = e.target.value;
     this.setState(() => ({ screening2: screening2 }));
+  }
+  
+  oninfographChange(e) {
+    const infograph = e.target.value;
+    this.setState(() => ({ infograph: infograph }));
   }
   // validate(event) {
   //   console.log("In validate");
@@ -175,6 +190,12 @@ class App extends Component {
     this.setState(() => ({ screening1: screening1 }));
 
   }
+  setInfograph(event) {
+    console.log(event.target.value);
+    const infograph = event.target.value;
+    this.setState(() => ({ infograph: infograph }));
+
+  }
   setScreening2(event) {
     console.log(event.target.value);
     const screening2 = event.target.value;
@@ -194,6 +215,7 @@ class App extends Component {
     console.log("THE VAL", e.target.value);
     //here you will see the current selected value of the select input
   }
+  
   render() {
     const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -253,7 +275,7 @@ class App extends Component {
       // background: "#0f0",
       // fontSize: "32px"
   };
-
+ 
     return (
       
       <Wizard
@@ -272,100 +294,23 @@ class App extends Component {
         <p><b>What are the risks?</b></p>
         <p>This survey is completely anonymous and therefore confidential, so there is no risk that we will know who said what. This study is completely voluntary and to withdraw during the study simply stop answering the questions. Due to the anonymous nature of the study we will not be able to delete your data if you withdraw.</p>
         <p>If you are concerned about your risk of bowel cancer, please discuss this with your doctor today.</p>
+       
+        {/* <label className="control-margin-lbl" onClick={this.onOpenModal}>link</label> */}
+        <a href="#" className="control-margin-lbl" data-target={this.onOpenModal}>link</a>
+        <button className="btn btn-action" onClick={this.onOpenModal}>
+          Open
+        </button>{' '}
+        <Modal onClose={this.onCloseModal} center>
+          <h2>Simple centered modal</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+            pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
+            hendrerit risus, sed porttitor quam.
+          </p>
+        </Modal>
       </div>
     </Wizard.Page>
-    <Wizard.Page validate ={values => {
-          const errors = {}
-          if (!this.state.screening2) {
-            errors.screening2 = 'Please select the appropriate option'
-          }return errors}}>
-
-        {/* <div className='img-responsive center-block' > */}
-              <a href="#"><img src={UomLogo} alt={"UomLogo"} className='rounded mx-auto d-block' /> </a>
-        {/* </div> */}
-            <p>Your risk of developing bowel cancer in the next 5 years is <b> 0.2%..</b></p>
-            {/* styles={{float : 'left', paddingRight : '5px'}} {{margin-bottom:'100px'}} */}
-            <p styles= 'margin-bottom:100px'>Most people like you would choose to have a faecal occult blood test.</p>
-            <p>If this was your bowel cancer risk, would you choose to have now</p>
-            <p><i>(please select ONE of the following options):</i></p>
-            <div className="form-check"  onChange={this.setScreening2.bind(this)}>
-            <div className="col-sm-12 control-margin-lbl-select">
-            <label className="radio-inline">
-                  <input type="radio" value="NOSCREENING" name="screening2" /> No bowel cancer screening  
-</label><label className="radio-inline">
-                  <input type="radio" value="FAECALBLOOD" name="screening2" /> Faecal occult blood test (FOBT)
-                  </label><label className="radio-inline">
-                  <input type="radio" value="COLONOSCOPY" name="screening2" /> Colonoscopy
-</label>
-              </div>
-              <div className="validationMsg" >
-                <Error name="screening2" />
-              </div>
-              </div>
-            <br></br>
-              
-    </Wizard.Page>
-    <Wizard.Page validate={values => {
-          const errors = {}
-
-          if (!this.state.screening1) {
-            errors.screening1 = 'Please select the appropriate option'
-          }return errors
-          if (!this.state.screening2) {
-            errors.screening2 = 'Please select the appropriate option'
-          }return errors}}>
-
-        {/* <div className='img-responsive center-block' > */}
-              <a href="#"><img src={UomLogo} alt={"UomLogo"} className='rounded mx-auto d-block' /> </a>
-        {/* </div> */}
-            <p>Your risk of developing bowel cancer in the next 5 years is <b>1.6%.</b></p>
-            {/* styles={{float : 'left', paddingRight : '5px'}} {{margin-bottom:'100px'}} */}
-            <p styles= 'margin-bottom:100px'>Australian National Health guidelines recommend you have a colonoscopy.</p>
-            <p>If this was your bowel cancer risk, would you choose to have now</p>
-            <p><i>(please select ONE of the following options):</i></p>
-              <div   onChange={this.setScreening1.bind(this)}>
-            <div className="col-sm-12 control-margin-lbl-select">
-                  <input type="radio" value="NOSCREENING" name="screening1" /> No bowel cancer screening  
-                  <input type="radio" value="FAECALBLOOD" name="screening1" /> Faecal occult blood test (FOBT)
-                  <input type="radio" value="COLONOSCOPY" name="screening1" /> Colonoscopy
-              </div>
-              <div className="validationMsg" >
-                <Error name="screening1" />
-              </div>
-              </div>
-              <br></br>
-
-              
-    </Wizard.Page>
-
-    <Wizard.Page>
-        <div className="form-group ">
-            <div className="radio-button-container radio-container-inline" onChange={this.setColonoscopy.bind(this)}>
-              {/* <div className=""> */}
-              {/* </div> */}
-             
-              <label >This diagram shows you what would happen to 100,000 people like you if they have either a faecal occult blood test (FOBT), no bowel cancer screening or a colonoscopy.</label>
-              <div className="col-sm-12 ">
-                    <a href="#"><img src={HRpopulation} alt={"HRpopulation"} /> </a>
-            </div><br></br>
-               <div>
-              <label >Based on this information, would you choose to have (please select ONE of the following options):</label><br></br>
-                </div>
-            <div className="col-sm-12 control-margin-lbl-select">
-                  <input type="radio" value="English" name="language" /> No bowel cancer screening  
-                  <input type="radio" value="OTHERLANGUAGE" name="language" /> Faecal occult blood test (FOBT)
-                  <input type="radio" value="English" name="language" /> Colonoscopy
-                </div>
-            </div>
-              {/* </div> */}
-              <br></br>
-              <div className="validationMsg" >
-                {/* // style={ { backgroundImage: `url(${Background})` } }  > */}
-                <Error name="colonoscopy" />
-              </div>
-            </div>
-
-        </Wizard.Page>
+    
     <Wizard.Page >
       <div >
         <p><b>What I need to do?</b> This study will take between 10 to 15 minutes to complete, prior to your appointment with your doctor today. You will not miss your appointment.</p>
@@ -418,9 +363,9 @@ class App extends Component {
           }
 
 
-          // if (!this.state.language) {
-          //   errors.language   = 'Please select the appropriate option'
-          // }
+          if (!this.state.language) {
+            errors.language   = 'Please select the appropriate option'
+          }
           return errors
         }}>
           {/*
@@ -663,7 +608,361 @@ class App extends Component {
 
 
         </Wizard.Page>
-        
+        <Wizard.Page validate ={values => {
+          const errors = {}
+          if (!this.state.screening2) {
+            errors.screening2 = 'Please select the appropriate option'
+          }return errors}}>
+
+        {/* <div className='img-responsive center-block' > */}
+              <a href="#"><img src={UomLogo} alt={"UomLogo"} className='rounded mx-auto d-block' /> </a>
+        {/* </div> */}
+            <p>Your risk of developing bowel cancer in the next 5 years is <b> 0.2%..</b></p>
+            {/* styles={{float : 'left', paddingRight : '5px'}} {{margin-bottom:'100px'}} */}
+            <p styles= 'margin-bottom:100px'>Most people like you would choose to have a faecal occult blood test.</p>
+            <p>If this was your bowel cancer risk, would you choose to have now</p>
+            <p><i>(please select ONE of the following options):</i></p>
+            <div className="control-margin-lbl-select">
+            <div className="form-check  col-sm-12 "  onChange={this.setScreening2.bind(this)}>
+            <label className="radio-inline">
+                  <input type="radio" value="NOSCREENING" name="screening2" /> No bowel cancer screening  
+            </label><label className="radio-inline">
+                  <input type="radio" value="FAECALBLOOD" name="screening2" /> Faecal occult blood test (FOBT)
+            </label><label className="radio-inline">
+                  <input type="radio" value="COLONOSCOPY" name="screening2" /> Colonoscopy
+            </label>
+            {/* <button onClick={() => {alert('Faecal occult blood testing (FOBT)');}}>popup open</button> */}
+            
+              </div>
+              </div>
+              <div className="validationMsg" >
+                <Error name="screening2" />
+              </div>
+            <br></br>
+              
+    </Wizard.Page>
+    <Wizard.Page validate={values => {
+          const errors = {}
+          if (!this.state.screening1) {
+            errors.screening1 = 'Please select the appropriate option'
+          }return errors
+        }}
+          
+          >
+          
+
+        {/* <div className='img-responsive center-block' > */}
+              <a href="#"><img src={UomLogo} alt={"UomLogo"} className='rounded mx-auto d-block' /> </a>
+        {/* </div> */}
+            <p>Your risk of developing bowel cancer in the next 5 years is <b>1.6%.</b></p>
+            {/* styles={{float : 'left', paddingRight : '5px'}} {{margin-bottom:'100px'}} */}
+            <p styles= 'margin-bottom:100px'>Australian National Health guidelines recommend you have a colonoscopy.</p>
+            <p>If this was your bowel cancer risk, would you choose to have now</p>
+            <p><i>(please select ONE of the following options):</i></p>
+              {/* <div   onChange={this.setScreening1.bind(this)}> */}
+              <div className="control-margin-lbl-select">
+              <div className="form-check col-sm-12 "  onChange={this.setScreening1.bind(this)}>
+            {/* <div className="col-sm-12 "> */}
+            {/* <div className="form-check control-margin-lbl-select col-sm-12 "> */}
+            <label className="radio-inline">  
+                  <input type="radio" value="NOSCREENING" name="screening1" /> No bowel cancer screening  
+              </label><label className="radio-inline">
+                  <input type="radio" value="FAECALBLOOD" name="screening1" /> Faecal occult blood test (FOBT)
+              </label><label className="radio-inline">    
+                  <input type="radio" value="COLONOSCOPY" name="screening1" /> Colonoscopy
+                  </label>    
+              </div></div>
+              <div className="validationMsg" >
+                <Error name="screening1" />
+              </div>
+              {/* </div> */}
+
+              <br></br>
+
+              
+    </Wizard.Page>
+
+        <Wizard.Page validate={values => {
+          const errors = {}
+          if (!this.state.infograph) {
+            errors.infograph = 'Please select the appropriate option'
+          } return errors
+        }}>
+          <div className="form-group ">
+            <div className="radio-button-container radio-container-inline" onChange={this.setColonoscopy.bind(this)}>
+              {/* <div className=""> */}
+              {/* </div> */}
+
+              <label >This diagram shows you what would happen to 100,000 people like you if they have either a faecal occult blood test (FOBT), no bowel cancer screening or a colonoscopy.</label>
+              <div className="col-sm-12 ">
+                <a href="#"><img src={HRpopulation} alt={"HRpopulation"} /> </a>
+              </div><br></br>
+              <label >Based on this information, would you choose to have (please select ONE of the following options):</label><br></br>
+              <div className="control-margin-lbl-select">
+                <div className="form-check col-sm-12 " onChange={this.setInfograph.bind(this)}>
+              <label className="radio-inline">
+                    <input type="radio" value="NOSCREENING" name="infograph" /> No bowel cancer screening
+              </label> <label className="radio-inline">
+                    <input type="radio" value="FAECALBLOOD" name="infograph" /> Faecal occult blood test (FOBT)
+              </label> <label className="radio-inline">
+                    <input type="radio" value="COLONOSCOPY" name="infograph" /> Colonoscopy
+              </label>
+                </div></div>
+               
+                
+              {/* </div> */}
+              <br></br>
+              <div className="validationMsg" >
+                {/* // style={ { backgroundImage: `url(${Background})` } }  > */}
+                <Error name="infograph" />
+              </div>
+            </div>
+          </div>
+
+        </Wizard.Page>
+
+        <Wizard.Page validate ={values => {
+          const errors = {}
+          // if (!this.state.screening2) {
+          //   errors.screening2 = 'Please select the appropriate option'
+          // }return errors
+        }}>
+
+        {/* <div className='img-responsive center-block' > */}
+              
+        {/* </div> */}
+            <p>Please consider the following information and answer the questions below:</p>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <p><b>Faecal occult blood testing (FOBT)</b></p>
+                      <ul>
+                        <li>Cost to you of approximately $32.50 per kit</li>
+                        <li>No time off work/duties</li>
+                        <li>No risk of harm or death</li>
+                      </ul>
+                  </td>
+                  <td>
+                    <p><b>Colonoscopy</b></p>
+                    <ul>
+                        <li>Cost to you of approximately $32.50 per kit</li>
+                        <li>No time off work/duties</li>
+                        <li>No risk of harm or death</li>
+                      </ul>
+                  </td>
+         
+                </tr>
+              </tbody>
+            </table>
+            <p><b>How likely is the cost of these tests to influence your choice of screening test?</b></p>
+
+            {/* styles={{float : 'left', paddingRight : '5px'}} {{margin-bottom:'100px'}} */}
+            {/* <p styles= 'margin-bottom:100px'>Most people like you would choose to have a faecal occult blood test.</p>
+            <p>If this was your bowel cancer risk, would you choose to have now</p>
+            <p><i>(please select ONE of the following options):</i></p> */}
+            {/* <div className="control-margin-lbl-select"> */}
+            {/* <div className="form-check  col-sm-12 "  onChange={this.setScreening2.bind(this)}> */}
+            <table className="custom-matrix-cost modern-browser">
+              <tbody>
+                <tr><td className="radio-button-container">
+                   {/* <span className="radio-button-display radio_middle"></span> */}
+                    {/* <label className="radio-inline answer-label radio-button-label no-touch touch-sensitive clearfix"> */}
+                          <input type="radio" value="NOSCREENING" name="screening2"/> Very likely to make me change to an FOBT test
+                          {/* <span class="radio-button-display radio_middle"></span> */}
+                          {/* <span class="radio-button-label-text question-body-font-theme user-generated">Very likely to make me change to an FOBT test</span> */}
+                    {/* </label> */}
+                  </td>
+                  <td className="radio-button-container"> 
+                  <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="FAECALBLOOD" name="screening2"/> Likely to make me consider an FOBT
+                    </label>
+                  </td>
+                  <td className="radio-button-container">
+                  <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="COLONOSCOPY" name="screening2"/> Unlikely to influence my choice of test
+                    </label>
+                  </td>
+                  <td className="radio-button-container">
+                  <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="COLONOSCOPY" name="screening2"/> Likely to make me consider a colonoscopy
+                    </label>
+                  </td>
+                   <td className="radio-button-container">
+                   <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="COLONOSCOPY" name="screening2"/> Very likely to make me change to an colonoscopy
+                    </label>
+                  </td></tr>{/* <button onClick={() => {alert('Faecal occult blood testing (FOBT)');}}>popup open</button> */}
+            
+                
+              </tbody>
+            </table>
+              {/* </div> */}
+              {/* </div> */}
+              <div className="validationMsg" >
+                <Error name="screening2" />
+              </div>
+            <br></br>
+              
+ {/* // Row 2 */}
+
+             <p><b>How likely are the risks of colonoscopy to influence your choice of screening test?</b></p>
+
+            {/* styles={{float : 'left', paddingRight : '5px'}} {{margin-bottom:'100px'}} */}
+            {/* <p styles= 'margin-bottom:100px'>Most people like you would choose to have a faecal occult blood test.</p>
+            <p>If this was your bowel cancer risk, would you choose to have now</p>
+            <p><i>(please select ONE of the following options):</i></p> */}
+            {/* <div className="control-margin-lbl-select"> */}
+            {/* <div className="form-check  col-sm-12 "  onChange={this.setScreening2.bind(this)}> */}
+            <table className="custom-matrix-cost modern-browser">
+              <tbody>
+                <tr><td className="radio-button-container">
+                   {/* <span className="radio-button-display radio_middle"></span> */}
+                    {/* <label className="radio-inline answer-label radio-button-label no-touch touch-sensitive clearfix"> */}
+                          <input type="radio" value="NOSCREENING" name="screening2"/> Very likely to make me change to an FOBT test
+                          {/* <span class="radio-button-display radio_middle"></span> */}
+                          {/* <span class="radio-button-label-text question-body-font-theme user-generated">Very likely to make me change to an FOBT test</span> */}
+                    {/* </label> */}
+                  </td>
+                  <td className="radio-button-container"> 
+                  <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="FAECALBLOOD" name="screening2"/> Likely to make me consider an FOBT
+                    </label>
+                  </td>
+                  <td className="radio-button-container">
+                  <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="COLONOSCOPY" name="screening2"/> Unlikely to influence my choice of test
+                    </label>
+                  </td>
+                  <td className="radio-button-container">
+                  <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="COLONOSCOPY" name="screening2"/> Likely to make me consider a colonoscopy
+                    </label>
+                  </td>
+                   <td className="radio-button-container">
+                   <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="COLONOSCOPY" name="screening2"/> Very likely to make me change to an colonoscopy
+                    </label>
+                  </td></tr>{/* <button onClick={() => {alert('Faecal occult blood testing (FOBT)');}}>popup open</button> */}
+            
+                
+              </tbody>
+            </table>
+              {/* </div> */}
+              {/* </div> */}
+              <div className="validationMsg" >
+                <Error name="screening2" />
+              </div>
+            <br></br>
+ {/* // Row 3 */}
+
+             <p><b>How likely is the time away from work/duties to influence your choice of screening test?</b></p>
+
+            {/* styles={{float : 'left', paddingRight : '5px'}} {{margin-bottom:'100px'}} */}
+            {/* <p styles= 'margin-bottom:100px'>Most people like you would choose to have a faecal occult blood test.</p>
+            <p>If this was your bowel cancer risk, would you choose to have now</p>
+            <p><i>(please select ONE of the following options):</i></p> */}
+            {/* <div className="control-margin-lbl-select"> */}
+            {/* <div className="form-check  col-sm-12 "  onChange={this.setScreening2.bind(this)}> */}
+            <table className="custom-matrix-cost modern-browser">
+              <tbody>
+                <tr><td className="radio-button-container">
+                   {/* <span className="radio-button-display radio_middle"></span> */}
+                    {/* <label className="radio-inline answer-label radio-button-label no-touch touch-sensitive clearfix"> */}
+                          <input type="radio" value="NOSCREENING" name="screening2"/> Very likely to make me change to an FOBT test
+                          {/* <span class="radio-button-display radio_middle"></span> */}
+                          {/* <span class="radio-button-label-text question-body-font-theme user-generated">Very likely to make me change to an FOBT test</span> */}
+                    {/* </label> */}
+                  </td>
+                  <td className="radio-button-container"> 
+                  <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="FAECALBLOOD" name="screening2"/> Likely to make me consider an FOBT
+                    </label>
+                  </td>
+                  <td className="radio-button-container">
+                  <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="COLONOSCOPY" name="screening2"/> Unlikely to influence my choice of test
+                    </label>
+                  </td>
+                  <td className="radio-button-container">
+                  <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="COLONOSCOPY" name="screening2"/> Likely to make me consider a colonoscopy
+                    </label>
+                  </td>
+                   <td className="radio-button-container">
+                   <span className="radio-button-display radio_middle"></span>
+                    <label className="radio-inline">
+                          <input type="radio" value="COLONOSCOPY" name="screening2"/> Very likely to make me change to an colonoscopy
+                    </label>
+                  </td></tr>{/* <button onClick={() => {alert('Faecal occult blood testing (FOBT)');}}>popup open</button> */}
+            
+                
+              </tbody>
+            </table>
+              {/* </div> */}
+              {/* </div> */}
+              <div className="validationMsg" >
+                <Error name="screening2" />
+              </div>
+            <br></br>
+
+           
+            <b><p>After considering this information about the costs and potential harms of tests, what test would you use for screening if you were at AVERAGE RISK of colorectal cancer?</p></b>
+            
+              {/* <div   onChange={this.setScreening1.bind(this)}> */}
+              <div className="control-margin-lbl-select">
+              <div className="form-check col-sm-12 "  onChange={this.setScreening1.bind(this)}>
+            {/* <div className="col-sm-12 "> */}
+            {/* <div className="form-check control-margin-lbl-select col-sm-12 "> */}
+            <label className="radio-inline">  
+                  <input type="radio" value="NOSCREENING" name="screening1" /> No bowel cancer screening  
+              </label><label className="radio-inline">
+                  <input type="radio" value="FAECALBLOOD" name="screening1" /> Faecal occult blood test (FOBT)
+              </label><label className="radio-inline">    
+                  <input type="radio" value="COLONOSCOPY" name="screening1" /> Colonoscopy
+                  </label>    
+              </div></div>
+              <div className="validationMsg" >
+                <Error name="screening1" />
+              </div>
+              {/* </div> */}
+
+              <br></br>
+
+
+          <b><p>After considering this information about the costs and potential harms of tests, what test would you use for screening if you were at INCREASED RISK of colorectal cancer?</p></b>
+            
+            {/* <div   onChange={this.setScreening1.bind(this)}> */}
+            <div className="control-margin-lbl-select">
+            <div className="form-check col-sm-12 "  onChange={this.setScreening1.bind(this)}>
+          {/* <div className="col-sm-12 "> */}
+          {/* <div className="form-check control-margin-lbl-select col-sm-12 "> */}
+          <label className="radio-inline">  
+                <input type="radio" value="NOSCREENING" name="screening1" /> No bowel cancer screening  
+            </label><label className="radio-inline">
+                <input type="radio" value="FAECALBLOOD" name="screening1" /> Faecal occult blood test (FOBT)
+            </label><label className="radio-inline">    
+                <input type="radio" value="COLONOSCOPY" name="screening1" /> Colonoscopy
+                </label>    
+            </div></div>
+            <div className="validationMsg" >
+              <Error name="screening1" />
+            </div>
+            {/* </div> */}
+
+            <br></br>
+    </Wizard.Page>
           {/* <Wizard.Page >
       <div >
         <p>The CRISP-Q study.</p>
