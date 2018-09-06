@@ -241,7 +241,7 @@ class App extends Component {
           colonoscopy: this.state.colonoscopy,
           // published: this.state.published
         });
-        window.alert(JSON.stringify(values, 0, 2))
+        // window.alert(JSON.stringify(values, 0, 2))
       }
       // window.alert(JSON.stringify(values, 0, 2))
     }
@@ -283,41 +283,25 @@ class App extends Component {
         onSubmit={onSubmit}
       >
 
-       <Wizard.Page >
-       <b><p>After considering this information about the costs and potential harms of tests, what test would you use for screening if you were at INCREASED RISK of colorectal cancer?</p></b>
+       {/* <Wizard.Page > */}
+       {/* <b><p>After considering this information about the costs and potential harms of tests, what test would you use for screening if you were at INCREASED RISK of colorectal cancer?</p></b>
             
-            {/* <div   onChange={this.setScreening1.bind(this)}> */}
-            <div className="control-margin-lbl-select">
-            <div className="form-check col-sm-12 "  onChange={this.setScreening1.bind(this)}>
-          {/* <div className="form-check control-margin-lbl-select col-sm-12 "> */}
+           
           <div className="custom-control custom-radio">
-          {/* <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"/>
-          <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label> */}
-          {/* <label className="radio-inline">   */}
-                {/* <input type="radio" value="NOSCREENING" name="screening1" id="customRadio1"  class="custom-control-input"/> 
-                <label class="custom-control-label" for="customRadio1">No bowel cancer screening  </label> */}
-            {/* </label> */}
-            {/* <label className="radio-inline"> */}
-                {/* <input type="radio" value="FAECALBLOOD" name="screening1"  id="customRadio2"  class="custom-control-input" /> <label class="custom-control-label" for="customRadio2">Faecal occult blood test (FOBT)</label> */}
-            {/* </label><label className="radio-inline">     */}
-                {/* <input type="radio" value="COLONOSCOPY" name="screening1"   id="customRadio3"  class="custom-control-input"/> <label class="custom-control-label" for="customRadio3">Colonoscopy
-                </label> */}
-                <div class="form-check">
-                <input type="radio" value="NOSCREENING" name="screening1" id="materialChecked" class="form-check-input"/> 
-                <label class="form-check-label" for="materialChecked">No bowel cancer screening  </label>
+            <label className="radio-inline">
+          <input type="radio" id="customRadio1" value="NOTOGELE" class="custom-control-input" name='test'/>
+          <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>  */}
+          
+                {/* <input type="radio" value="NOSCREENING" id="customRadio2"  class="custom-control-input" name='test'/> 
+                <label class="custom-control-label" for="customRadio2">No bowel cancer screening  </label> */}
+          
+                {/* <input type="radio" value="FAECALBLOOD"  id="customRadio3"  class="custom-control-input" name='test'/>
+                 <label class="custom-control-label" for="customRadio3">Faecal occult blood test (FOBT)</label> */}
+            {/* </label>
+          
 
-<input type="radio" value="FAECALBLOOD" name="screening1"  id="materialChecked"  class="form-check-input" /> <label class="form-check-label" for="materialChecked">Faecal occult blood test (FOBT)</label>    
-          </div>
-          </div>
             </div>
-            </div>
-            <div className="validationMsg" >
-              <Error name="screening1" />
-            </div>
-            {/* </div> */}
-
-            <br></br>
-    </Wizard.Page>
+    </Wizard.Page> */}
      <Wizard.Page >
         <div >
         <p><b>The CRISP-Q study.</b></p>
@@ -330,11 +314,12 @@ class App extends Component {
         <p>This survey is completely anonymous and therefore confidential, so there is no risk that we will know who said what. This study is completely voluntary and to withdraw during the study simply stop answering the questions. Due to the anonymous nature of the study we will not be able to delete your data if you withdraw.</p>
         <p>If you are concerned about your risk of bowel cancer, please discuss this with your doctor today.</p>
        
+ 
         {/* <label className="control-margin-lbl" onClick={this.onOpenModal}>link</label> */}
-        <a href="#" className="control-margin-lbl" data-target={this.onOpenModal}>link</a>
+        {/* <a href="#" className="control-margin-lbl" data-target={this.onOpenModal}>link</a>
         <button className="btn btn-action" onClick={this.onOpenModal}>
           Open
-        </button>{' '}
+        </button>{' '} */}
         <Modal onClose={this.onCloseModal} center>
           <h2>Simple centered modal</h2>
           <p>
@@ -659,16 +644,18 @@ class App extends Component {
             <p><i>(please select ONE of the following options):</i></p>
             <div className="control-margin-lbl-select">
             <div className="form-check  col-sm-12 "  onChange={this.setScreening2.bind(this)}>
-            <label className="radio-inline">
-                  <input type="radio" value="NOSCREENING" name="screening2" /> No bowel cancer screening  
-            </label><label className="radio-inline">
-                  <input type="radio" value="FAECALBLOOD" name="screening2" /> Faecal occult blood test (FOBT)
-            </label><label className="radio-inline">
-                  <input type="radio" value="COLONOSCOPY" name="screening2" /> Colonoscopy
-            </label>
+                  <input type="radio" value="NOSCREENING" name="screening2" />   
+            <label className="radio-inline">No bowel cancer screening</label>
+                  <input type="radio" value="FAECALBLOOD" name="screening2" /> 
+            <label className="radio-inline">Faecal occult blood test (FOBT)</label>
+            <input type="radio" value="COLONOSCOPY" name="screening2" />
+            <label className="radio-inline"> Colonoscopy</label>
             {/* <button onClick={() => {alert('Faecal occult blood testing (FOBT)');}}>popup open</button> */}
             
               </div>
+              </div>
+              <div>
+                
               </div>
               <div className="validationMsg" >
                 <Error name="screening2" />
@@ -891,22 +878,12 @@ class App extends Component {
                 
               </tbody>
             </table>
-              {/* </div> */}
-              {/* </div> */}
               <div className="validationMsg" >
                 <Error name="screening2" />
               </div>
             <br></br>
- {/* // Row 3 */}
 
              <p><b>How likely is the time away from work/duties to influence your choice of screening test?</b></p>
-
-            {/* styles={{float : 'left', paddingRight : '5px'}} {{margin-bottom:'100px'}} */}
-            {/* <p styles= 'margin-bottom:100px'>Most people like you would choose to have a faecal occult blood test.</p>
-            <p>If this was your bowel cancer risk, would you choose to have now</p>
-            <p><i>(please select ONE of the following options):</i></p> */}
-            {/* <div className="control-margin-lbl-select"> */}
-            {/* <div className="form-check  col-sm-12 "  onChange={this.setScreening2.bind(this)}> */}
             <table className="custom-matrix-cost modern-browser">
               <tbody>
                 <tr><td className="radio-button-container">
@@ -1004,128 +981,9 @@ class App extends Component {
             <p>If you have any questions please contact us at:<a href="mailto:ykim1@student.unimelb.edu.au"> ykim1@student.unimelb.edu.au</a> or <a href="mailto:walker@unimelb.edu.au">walker@unimelb.edu.au</a></p><br></br>
             <p>If you would like a copy of the final results of this study, please contact <a href="mailto:walker@unimelb.edu.au">walker@unimelb.edu.au</a></p>
     </Wizard.Page>
-          {/* <Wizard.Page >
-      <div >
-        <p>The CRISP-Q study.</p>
-        <p>Researchers: Yena (Grace) Kim (Scholarly Selective Student), Prof Jon Emery, A/Prof Marie Pirotta and Dr Jennifer Walker The Department of General Practice, University of Melbourne</p>
+          
 
-        <p>Thank you for taking part in this study. We are interested in how people think about their risk of bowel cancer and their use of bowel cancer screening tests</p>          
-        <p>Who can participate? </p>
-        <p>Any person 40 years or older but younger than 75, attending a GP appointment at Deepdene Surgery can participate in the study.</p>
-        <p>What are the risks?</p>
-        <p>This survey is completely anonymous and therefore confidential, so there is no risk that we will know who said what. This study is completely voluntary and to withdraw during the study simply stop answering the questions. Due to the anonymous nature of the study we will not be able to delete your data if you withdraw.</p>
-        <p>If you are concerned about your risk of bowel cancer, please discuss this with your doctor today.</p>
-      </div>
-    </Wizard.Page>
-    <Wizard.Page >
-      <div >
-        <p><b>What I need to do?</b> This study will take between 10 to 15 minutes to complete, prior to your appointment with your doctor today. You will not miss your appointment.</p>
-        <p>You will be shown some scenarios about bowel cancer risk. We would like you to imagine that the information is about your risk of bowel cancer.</p>
-
-        <p>After each scenario, you will be asked to say whether you would choose to do one of the following options:</p>
-        <ol type="1">
-        
-        <b><li >No screening for bowel cancer.</li> </b>
-        <li><b>Screening using the faecal occult blood test (FOBT). </b><p>This involves taking tiny samples from two separate bowel motions (poo) using a test kit. The samples are then posted to a laboratory for testing.</p> </li> 
-        <li><b>Screening by colonoscopy.</b></li><p>A colonoscopy is a medical procedure that examines the large bowel, while the person is under a light sedation.</p>
-        <p>The colonoscope is a long, firm and flexible plastic tube with a tiny digital camera and light at one end.</p>
-        <p>Colonoscopy is generally a safe procedure, although complications may rarely occur.</p>
-        <p>Complications include: excessive bleeding and perforation or puncture of the colon wall.</p>
-        <p>Having a colonoscopy means staying at home the day before for 'bowel preparation' using laxatives that stimulate bowel movements and 'cleanse the bowel'. The person would not be able to work on the day of the procedure.</p>
-        </ol>
-        <p><b>Clicking Start means that you understand the information on this page and consent to being involved in this study.</b></p>
-      </div>
-    </Wizard.Page> */}
-          {/* <Wizard.Page>
-            <p>The next pages will show you different information about bowel cancer risk.</p>
-            <p>Simply imagine this information is about you. </p>
-          </Wizard.Page> */}
-          {/* <Wizard.Page >
-      <div >
-        <label>Name</label>
-        <Field
-          name="name"
-          component="input"
-          type="text"
-          placeholder="Jhon"
-          validate={required}
-        />
-        <Error name="name" />
-      </div>
-      <div>
-        <label>Gender</label>
-        <Field
-          name="sex"
-          component="input"
-          type="text"
-          placeholder="Male"
-          validate={required}
-        />
-        <Error name="year" />
-      </div>
-      <div>
-        <label>Year</label>
-        <Field
-          name="year"
-          component="input"
-          type="text"
-          placeholder="1999"
-          validate={required}
-        />
-        <Error name="year" />
-      </div>
-    </Wizard.Page> */}
-
-
-          {/* <Wizard.Page
-          validate={values => {
-            const errors = {}
-            if (!values.notes) {
-              errors.notes = 'Please select the appropriate option'
-            }
-            if (!values.stooge) {
-              errors.stooge = 'Please select the appropriate stooge'
-            }
-
-            return errors
-          }}
-        >
-
-
-          <div>
-            <label>Best Stooge?</label>
-            <div>
-              <label>
-                <Field name="stooge" component="input" type="radio" value="moe" />{' '}
-                Moe
-          </label>
-              <label>
-                <Field
-                  name="stooge"
-                  component="input"
-                  type="radio"
-                  value="larry"
-                />{' '}
-                Larry
-          </label>
-              <label>
-                <Field
-                  name="stooge"
-                  component="input"
-                  type="radio"
-                  value="curly"
-                />{' '}
-                Curly
-          </label>
-            </div>
-            <Error name="stooge" />
-          </div>
-          <div>
-            <label>Notes</label>
-            <Field name="notes" component="textarea" placeholder="Notes" />
-            <Error name="notes" />
-          </div>
-        </Wizard.Page> */}
+          
       </Wizard>
         );
       }

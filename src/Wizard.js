@@ -22,7 +22,8 @@ export default class Wizard extends React.Component {
     super(props)
     this.state = {
       page: 0,
-      values: props.initialValues || {}
+      values: props.initialValues || {},
+      counter:0
     }
   }
 
@@ -32,20 +33,27 @@ export default class Wizard extends React.Component {
   }
   next = values => {
     console.log("this.page" + this.state.page);
-    // if(this.state.page == 3){
-    //   const rnd=  this.rndno(0,6);
-    //   console.log("******************** If: "+rnd);
-    //   this.setState(state => ({
-    //   page: Math.min(rnd  , this.props.children.length - 1),
-    //   values  
-    // }))}
-    // else{
-    console.log("********************@@@@@@" + this.rndno(0, 4));
+    if(this.state.page == 3 || this.state.page == 4 || this.state.page == 5 || this.state.page == 6){
+      this.state.counter= this.state.counter+1;
+      let rnd=  this.rndno(0,3);
+      // console.log("******************* : " + this.state.counter);
+      if(this.state.counter==5){
+                  console.log("******************* counter==5 : " + this.state.counter);
+          // this.state.page = 7;
+          rnd=3;
+      }
+      console.log("******************** If: "+rnd);
+      this.setState(state => ({
+      page: Math.min(4+rnd  , this.props.children.length - 1),
+      values  
+    }))}
+    else{
+    console.log("********************(Next) in else" + this.rndno(0, 4));
     this.setState(state => ({
       page: Math.min(state.page + 1, this.props.children.length - 1),
       values
     }))
-    // }
+    }
   }
   // this.setState(state => ({
   //   page: Math.min(state.page + 1, this.props.children.length - 1),
